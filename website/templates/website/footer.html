@@ -1,0 +1,17 @@
+{% load static %}
+
+<div class="row footer d-flex justify-content-center align-items-center bg-secondary" style="height: 150px;font-size: .8em;">
+    <div class="col-md-6 col-sm-10  d-flex justify-content-center align-items-center flex-column">
+        <h5>Our Social Media Handles</h5>
+        <ul class=" d-flex gap-3 justify-content-between align-items-center">
+            <li><a href=""><img tooltip="Youtube" src="{% static 'website/icons/youtube.svg' %}" width="28px" height="28px"></a></li>
+            <li><a href=""><img src="{% static 'website/icons/facebook.svg' %}" width="28px" height="28px"></a></li>
+            <li><a href=""><img src="{% static 'website/icons/linkedin.svg' %}" width="28px" height="28px"></a></li>
+            <li><a href=""><img src="{% static 'website/icons/instagram.svg' %}" width="28px" height="28px"></a></li>
+            <li><a href=""><img src="{% static 'website/icons/twitter.svg' %}" width="28px" height="28px"></a></li>
+            <li><a href=""><img src="{% static 'website/icons/tiktok.svg' %}" width="28px" height="28px"></a></li>
+            <li><a href=""><img src="{% static 'website/icons/telegram.svg' %}" width="28px" height="28px"></a></li>
+        </ul>
+        <p><a style="color: rgb(240, 231, 231);" href="{% url 'website:about_us' %}"><h5><i>About Developer</i></h5></a></p>
+    </div>
+</div>

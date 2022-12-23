@@ -1,0 +1,294 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'website/bootstrap/css/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'website/index.css' %}">
+        <link rel="stylesheet" href="{% static 'website/bootstrap/css/bootstrap.css' %}">
+    </head>
+    <style>
+        *{
+            text-decoration: none;
+            list-style-type: none;
+
+        }
+
+        body{
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            padding: 0px;
+            margin: 0px;
+            scrollbar-width: 2px;
+        }
+        
+        .container-fluid{
+            width: 100%;
+            height: 100%;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        a{
+            text-decoration: none;
+        }
+
+        .converting {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, .1);
+          z-index: 9999;
+          text-align: center;
+          display: none;
+        }
+
+        .converting .loader-contain{
+            background: white;
+        }
+
+        .converting .loader {
+          border: 10px solid #f3f3f3;
+          border-radius: 50%;
+          border-top: 10px solid #3498db;
+          width: 50px;
+          height: 50px;
+          -webkit-animation: spin 2s linear infinite; /* Safari */
+          animation: spin 2s linear infinite;
+        }
+
+        /* Safari */
+        @-webkit-keyframes spin {
+          0% { -webkit-transform: rotate(0deg); }
+          100% { -webkit-transform: rotate(360deg); }
+        }
+
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+    </style>
+    <body>
+        <div class="container-fluid">
+            <nav class="navbar position-fixed w-100 navbar-expand-sm navbar-light" style="background-color: #e3f2fd; z-index: 10;">
+                <div class="navbar-brand w-25 me-auto">
+                    <a class="navbar-brand mx-md-3 mx-lg-5 mx-sm-2" href="{% url 'website:index' %}">Convertitima</a>
+                </div>
+                <button style="width: 36px;height: 33px" class="navbar-toggler d-lg-none me-3 d-flex align-items-center justify-content-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+                    aria-expanded="false" aria-label="Toggle navigation"><img src="{% static 'website/icons/list.svg' %}" width="28px" height="28px"> </button>
+                <div class="collapse navbar-collapse" id="collapsibleNavId">
+                    <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Convert A File</a>
+                            <div style="width: 300px" class="dropdown-menu" aria-labelledby="dropdownId">
+                                <ul class="list-group-flush p-3">
+                                    <li class="list-group-item  text-white active"><a>Convert A File</a></li>
+                                    <li class="list-group-item"><a href="{% url 'website:qrcode' %}">Generate a QRCode</a></li>
+                                    <li class="list-group-item"><a href="{% url 'website:p_generator' %}">Generate A Password</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                    <form class="d-flex my-2 my-lg-0">
+                        <input class="form-control me-sm-2" type="text" placeholder="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div>
+            </nav>
+            <div class="div" style="height: 60px;"></div>
+            <div class="row">
+                <div class="col-md-1 col-sm-12"></div>
+                <div class="col-md-10 col-sm-12 py-2">
+                    <div class="row h-100 p-3">
+                        <div class="col-12 h-100">
+                            <div class="row my-3">
+                                <ul class="list-group list-group">
+                                    <li class="list-group-item active">File Converter</li>
+                                </ul>
+                                {% comment %} <div class="action bg-light" style="height: 250px;">
+                                    <input id="hey" type="file">
+                                    <div id="me"></div>
+                                </div> {% endcomment %}
+                                
+                                <div class=" col-12 bg-light my-2  d-flex justify-content-center" style="height: 400px;">
+                                    <div class="input bg-light h-100 col-lg-6 col-md-7 col-sm-12 align-items-center justify-content-center d-flex flex-column">
+                                        <form id="form" method='post' class="h-50 col-12 p-3 gap-2" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <input id="file" name="file" type="file" accept="application/pdf, application/docx, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class=" border-1 col-12 w-100 form-control">
+                                            <div class="input-group mb-3 my-2">
+                                                <span class="input-group-text">convert to</span>
+                                                <select class="form-select" id="extension">
+                                                    <option id="pdf">pdf</option>
+                                                    <option id="word">word</option>
+                                                </select>
+                                              </div>
+                                            <input disabled type="submit" id="convert" name="convert" class="btn my-2 col-12 text-white bg-primary" value="CONVERT">
+                                        </form>
+                                        <div id="download" class="results my-5" style="display: none;" >
+                                            <a href="" class="btn w-100 col-10 btn-success disabled" id="converted">DOWNLOAD</a>
+                                        </div>
+                                        <div id="error" class="my-5 text-danger"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="converting" class="converting justify-content-center align-items-center">
+                <div class="loader-contain d-flex flex-column align-items-center justify-content-center" style="width: 230px;height: 230px;">
+                    <div class="loader"></div>
+                    <div class="my-3">Converting...</div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center ">
+                <div class="row w-75 ">
+                    {% include 'website/feedback.html' %}
+                </div>
+            </div>
+            {% include 'website/footer.html' %}
+        </div>
+        <script>
+            var file_input = document.getElementById('file')
+            
+            
+            file_input.addEventListener('input', function(event){
+                event.preventDefault();
+                console.log("listenibg")
+                
+                var pdf = document.getElementById('pdf')
+                var word = document.getElementById('word')
+                var extend = document.getElementById('extension')
+                var file1 = document.getElementById('file').files[0];
+                
+                if (file_input.files.length === 0){
+                    document.getElementById("convert").disabled = true
+                } else{
+                    document.getElementById("convert").disabled = false
+                    
+                    filetype = file1.type;
+
+                    console.log(filetype)
+
+                    if (filetype === "application/pdf"){
+                        pdf.style.display = "none"
+                        word.selected = true
+                    } else{
+                        word.style.display = "none"
+                        pdf.selected = true
+                    }
+                }
+            })
+
+            document.getElementById('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var file = document.getElementById('file').files[0];
+            var file_ext = document.getElementById('extension').value;
+
+
+
+            var formData = new FormData();
+            formData.append('file', file);
+            formData.append('extension', file_ext);
+
+            function getCookie(name) {
+              var cookieValue = null;
+              if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                  var cookie = cookies[i].trim();
+                  // Does this cookie string begin with the name we want?
+                  if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                  }
+                }
+              }
+              return cookieValue;
+            }
+            
+            
+            var xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = function() {
+                // Check the readyState property
+                if (xhr.readyState === 4) {
+                    
+                // Check the status property
+                    if (xhr.status >= 200 && xhr.status < 300) {
+
+                    // Request was successful, do something with the data
+                    var data = xhr.response;
+
+                    // Remove the loading GIF or message
+                    document.getElementById("converting").style.display = "none";
+                    document.getElementById("download").style.display = "block";
+                    // Do something with the data
+                    // ...
+                    
+                    } else {
+                    // Request was not successful, display an error message
+                    document.getElementById("converting").style.display = "none";
+                    document.getElementById("error").innerHTML = "An error occurred: " + xhr.statusText;
+                    }
+
+                } else {
+                // Request is still being processed, display the loading GIF or message
+                document.getElementById("converting").style.display = "flex";
+                }
+            }
+            xhr.open('POST', '/convert');
+            xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken'));
+            xhr.responseType = 'json';
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // Geting the converted file as a blob
+                    var convertedFile = xhr.response.response;
+                    var ext_f = xhr.response.ext;
+
+                    console.log(ext_f)
+                    const fileReader = new FileReader();
+                    
+                    fileReader.onloadend = function() {
+                        const dataUrl = fileReader.result;
+
+                    // Creating a URL for the file
+                    // var url = URL.createObjectURL(dataUrl);
+
+                    // Creating a link element and set its href to the file URL
+                    var link = document.getElementById('converted');
+                    link.href = '';
+                    link.classList.remove('disabled');
+                    link.href = dataUrl;
+                    const filepath = dataUrl.split('/');
+                    const filename = filepath[filepath.length - 1];
+                    console.log(filename);
+
+                    // link.download = filename;
+
+                    }
+                    fileReader.readAsDataURL(convertedFile)
+
+                } else {
+                    // Handle error
+                    console.error(xhr.response);
+                }
+            };
+            xhr.send(formData);
+        });
+
+        </script>
+        <script src="{% static 'website/bootstrap/js/bootstrap.js' %}" async defer></script>
+    </body>
+</html>

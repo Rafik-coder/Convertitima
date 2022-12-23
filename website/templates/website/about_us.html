@@ -1,0 +1,167 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'website/bootstrap/css/bootstrap.css' %}">
+<!--        <link rel="stylesheet" href="{% static 'website/index.css' %}">-->
+        <link rel="stylesheet" href="{% static 'website/bootstrap/css/bootstrap.css' %}">
+<!--        <script src="{% static 'website/all.js' %}"></script>-->
+<!--        <script src="{% static 'website/all.min.js' %}"></script>-->
+        <link rel="stylesheet" src="{% static 'website/bootstrap/font/bootstrap-icons.css' %}">
+        <link rel="stylesheet" href="https://unpkg.com/bootstrap-icons@1.0.0-alpha2/font/bootstrap-icons.css" />
+    </head>
+    <style>
+        *{
+            text-decoration: none;
+            list-style-type: none;
+
+        }
+        body{
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            padding: 0px;
+            margin: 0px;
+            scrollbar-width: 2px;
+        }
+        
+        .container-fluid{
+            width: 100%;
+            height: 100%;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        a{
+            text-decoration: none;
+        }
+
+        .about-col{
+            display: none;
+        }
+
+
+        @media screen and (max-width: 770px){
+
+        /* .about{
+            display: none;
+        } */
+
+        .img{
+            border-right: none;
+        }
+
+        .about-col{
+            display: block;
+        }
+
+        .hey{
+            flex-direction: column;
+        }
+
+        }
+    </style>
+    <body>
+        <div class="container-fluid  bg-light w-100">
+            <nav class="navbar position-fixed w-100 justify-content-spacebetween navbar-expand-sm navbar-light" style="background-color: #e3f2fd; z-index: 10;">
+                <div class="navbar-brand w-75 me-auto">
+                    <a class="navbar-brand mx-md-3 mx-lg-5 mx-sm-2" href="{% url 'website:index' %}">Convertitima</a>
+                </div>
+                <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+                    aria-expanded="false" aria-label="Toggle navigation"><img src="{% static 'website/imgs/menu.svg' %}" width="32px" height="32px"> </button>
+                <div class="collapse navbar-collapse w-25 justify-content-center" id="collapsibleNavId">
+                    <form class="d-flex gx-sm-2 my-2 my-lg-0">
+                        <!-- <input class="form-control me-sm-2" type="text" placeholder="Search"> -->
+                        <button class="btn btn-outline-success float-end my-2 my-sm-0" type="submit">HIRE ME</button>
+                    </form>
+                </div>
+            </nav>
+            <div style="height: 70px;"></div>
+            <div class="row p-2 d-flex align-items-center justify-content-center">
+                <div class="col-md-9 col-lg-8 col-sm-10">
+                    <div class="row">
+                        <div class="col-12  shadow-sm d-flex hey">
+                            <div class="img col-md-5 col-sm-10 d-flex flex-column align-items-center justify-content-center">
+                                <div class="card profile align-items-center justify-content-center" style="width: 200px; height: 200px; ">
+                                    <img style="" src="{% static 'website/imgs/card-checklist.svg' %}" width="85%" height="85%">
+                                </div>
+                                <div class="my-2"><b><i>Convertitima</i></b></div>
+                            </div>
+                            <div class="about col-md-6 p-4 col-sm-10 ">
+                                <div class="d-flex flex-column justify-content-center align-items-center " style="">
+                                    <div class="col-10"></div>
+                                        <h2><u>About This Website</u></h2>
+                                        <h5>
+                                            It is developed with the following Softwares:
+                                        </h5>
+                                    </div>
+                                    <div class=" float-start "></div>
+                                        <ul>
+                                            <li>Python Django Framework</li>
+                                            <li>Python PyPDF2 Library</li>
+                                            <li>Python qrcode Library</li>
+                                            <li>Python docx Library</li>
+                                            <li>HTML, CSS & BOOTSTRAP</li>
+                                            <li>JavaScript - AJAX</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row my-5 p-2 d-flex align-items-center justify-content-center">
+                        <div class="col-md-9 col-lg-8 col-sm-10">
+                            <div class="row shadow-sm">
+                                <div class="img col-md-5 col-sm-10 d-flex flex-column align-items-center justify-content-center">
+                                    <div class="card profile" style="width: 200px; height: 200px; border-radius: 50%">
+                                        <img style="border-radius: 50%" src="{% static 'website/imgs/mine.jpg' %}" width="100%" height="100%">
+                                    </div>
+                                    <div class="my-2"><b><i>Code Wizard</i></b></div>
+                                </div>
+                                <div class="about col-md-7 p-4 col-sm-10 ">
+                                    <div class="d-flex flex-column justify-content-center align-items-center " style="">
+                                        <div class="col-10"></div>
+                                            <h2><u>About Me</u></h2>
+                                            <h5>
+                                                I am a software developer with experience in:
+                                            </h5>
+                                        </div>
+                                        <div class=" float-start "></div>
+                                            <ul>
+                                                <li>Python</li>
+                                                <li>JavaScript - AJAX</li>
+                                                <li>PHP</li>
+                                                <li>HTML, CSS & BOOTSTRAP</li>
+                                                <li>MySQL & PostgreSQL</li>
+                                            </ul>
+                                            <div>
+                                                Check-out My <a href="">Portfolio Here</a> OR my <a href="">GitHub</a> Repo.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row p-2 d-flex align-items-center justify-content-center">
+                                <div class="col-md-9 col-lg-8 col-sm-10">
+                                    <div class="row my-5">
+                                        {% include 'website/contact_us.html' %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="{% static 'website/bootstrap/js/bootstrap.js' %}" async defer></script>
+    </body>
+</html>

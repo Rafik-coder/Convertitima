@@ -1,0 +1,123 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'website/bootstrap/css/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'website/index.css' %}">
+        <link rel="stylesheet" href="{% static 'website/bootstrap/css/bootstrap.css' %}">
+
+        <script src="{% static 'website/index.js' %}"></script>
+    </head>
+    <style>
+        
+        *{
+            text-decoration: none;
+            list-style-type: none;
+
+        }
+
+        body{
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            padding: 0px;
+            margin: 0px;
+            scrollbar-width: 2px;
+        }
+
+        .container-fluid{
+            width: 100%;
+            height: 100%;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        a{
+            text-decoration: none;
+        }
+    </style>
+    <body>
+        <div class="container-fluid">
+            <nav class="navbar position-fixed w-100 navbar-expand-sm navbar-light" style="background-color: #e3f2fd; z-index: 10;">
+                <div class="navbar-brand w-25 me-auto">
+                    <a class="navbar-brand mx-md-3 mx-lg-5 mx-sm-2" href="{% url 'website:index' %}">Convertitima</a>
+                </div>
+                <button style="width: 36px;height: 33px" class="navbar-toggler d-lg-none me-3 d-flex align-items-center justify-content-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+                    aria-expanded="false" aria-label="Toggle navigation"><img src="{% static 'website/icons/list.svg' %}" width="28px" height="28px"> </button>
+                <div class="collapse navbar-collapse" id="collapsibleNavId">
+                    <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Generate A Password</a>
+                            <div style="width: 300px" class="dropdown-menu" aria-labelledby="dropdownId">
+                                <ul class="list-group-flush p-3">
+                                    <li class="list-group-item"><a href="{% url 'website:convert' %}">Convert A File</a></li>
+                                    <li class="list-group-item"><a href="{% url 'website:qrcode' %}">Generate a QRCode</a></li>
+                                    <li class="list-group-item active"><a>Generate A Password</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                    <form class="d-flex my-2 my-lg-0">
+                        <input class="form-control me-sm-2" type="text" placeholder="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div>
+            </nav>
+            <div class="div" style="height: 60px;"></div>
+            <div class="row">
+                <div class="col-md-1 col-sm-12"></div>
+                <div class="col-md-10 col-sm-12 py-2">
+                    <div class="row h-100 p-3">
+                        <div class="col-12 h-100">
+                            <div class="row my-3">
+                                <ul class=" col-12 list-group">
+                                    <li class="list-group-item active">QR Code Generator</li>
+                                </ul>
+                                <div class=" col-12 bg-light my-2 d-flex" style="height: 300px;">
+                                    <div class="input bg-light h-100 col-6">
+                                        <div class="p-4 h-50">
+                                            <p>Data To Encode</p>
+                                            <ul class="list-group p-3">
+                                                <li class="">URLs</li>
+                                                <li class="">Phone Numbers</li>
+                                                <li class="">Email Addresses etc</li>
+                                            </ul>
+                                        </div>
+                                        <form method='post' class="h-50 col-12 p-3 gap-2" >
+                                            {% csrf_token %}
+                                            <input name="length" value="{{ qrcode }}" type="number" class=" border-1 col-12 w-100 form-control" name="code" placeholder="Length of Password">
+                                            <input type="submit" name="generate_qrcode" value="GENERATE" class="btn my-2 col-12 text-white bg-primary">
+                                        </form>
+                                    </div>
+                                    <div class="result card shadow col-6 h-100">
+                                        <div class="h-75 d-flex justify-content-center align-items-center">
+                                            <input id="text" type="text" value="{{ password }}" disabled>
+                                        </div>
+                                        <div class="h-25 shadow d-flex align-items-center justify-content-center">
+                                            <div onclick="copyText()" name="copy" class="btn btn-primary">copy</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center ">
+                <div class="row w-75 ">
+                    {% include 'website/feedback.html' %}
+                </div>
+            </div>
+            {% include 'website/footer.html' %}
+        </div>
+        <script src="{% static 'website/bootstrap/js/bootstrap.js' %}" async defer></script>
+    </body>
+</html>

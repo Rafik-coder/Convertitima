@@ -1,0 +1,125 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'website/bootstrap/css/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'website/bootstrap/css/bootstrap.css' %}">
+        <link rel="stylesheet" src="{% static 'website/bootstrap/font/bootstrap-icons.css' %}">
+    </head>
+    <style>
+        *{
+            text-decoration: none;
+            list-style-type: none;
+
+        }
+        body{
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            padding: 0px;
+            margin: 0px;
+            scrollbar-width: 2px;
+        }
+        
+        .container-fluid{
+            width: 100%;
+            height: 100%;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        a{
+            text-decoration: none;
+        }
+
+        .about-col{
+            display: none;
+        }
+
+        @media screen and (max-width: 770px){
+
+        .about{
+            display: none;
+        }
+
+        .img{
+            border-right: none;
+        }
+
+        .about-col{
+            display: block;
+        }
+
+        }
+    </style>
+    <body>
+        <div class="container-fluid  bg-light">
+            <nav class="navbar position-fixed w-100 justify-content-spacebetween navbar-expand-sm navbar-light" style="background-color: #e3f2fd; z-index: 10;">
+                <div class="navbar-brand w-75 me-auto">
+                    <a class="navbar-brand mx-md-3 mx-lg-5 mx-sm-2" href="{% url 'website:index' %}">Convertitima</a>
+                </div>
+                <div style="width: 120px;" class="collapse navbar-collapse" id="collapsibleNavId">
+                    <a href="#services">Our Service</a>
+                </div>
+                <button style="width: 36px;height: 33px" class="navbar-toggler d-lg-none me-3 d-flex align-items-center justify-content-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+                    aria-expanded="false" aria-label="Toggle navigation"><img src="{% static 'website/icons/list.svg' %}" width="28px" height="28px"> </button>
+                <div class="collapse navbar-collapse" id="collapsibleNavId">
+                    <form class="d-flex gx-sm-2 my-2 my-lg-0">
+                        <input class="form-control me-sm-2" type="text" placeholder="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div>
+            </nav>
+            <div class="div" style="height: 60px;"></div>
+            <div class="row d-flex align-items-center justify-content-center">
+                <div class="col-md-10 col-lg-8 col-sm-12 py-2">
+                    <div class="row h-100 p-3 ">
+                        <div class="col-12">
+                            <div class="row my-3">
+                                <div style="font-size: 1.3em">
+                                    <span style="font-size: 1.2em">Hi</span>, <br>
+                                    <p style="font-size: .9em;">
+                                        Welcome to <b>Convertitima</b>, the only website that allows you to convert files, generate QR codes, and generate random passwords for <b>FREE</b>!!!<br><br>
+
+                                        To convert a file, simply click on the <b><a href="#convert"> Convert A File </a></b>link below. There, select the file you want to convert and choose the desired output format. Our website supports 
+                                        a wide range of document formats, including word, pdfs and txt.<br><br>
+
+                                        To generate a QR code, choose the <b><a href="#convert"> Generate QRCode</a></b> link, then enter the information you want to include in the QR code and choose your desired 
+                                        options, such as size and color. You can then download or print the QR code for use.<br><br>
+
+                                        To generate a random password, choose the <b><a href="#convert"> Generate Password</a></b> link, then specify the length and complexity of the password you want, and our 
+                                        website will generate a secure, unique password for you. You can use these passwords to protect your online accounts and keep your personal information safe.<br><br>
+
+                                    </p>
+                                <div class=" col-12 my-5" style="height: 300px;font-size: .9em;" id="services">
+                                    <div class="input bg-light col-lg-6 col-md-7 col-sm-12">
+                                        <h4>Enjoy Our service below;</h4>
+                                    </div>
+                                    <div>
+                                        <ul class="list-group-flush p-3" style="font-size: .9em;">
+                                            <li class="list-group-item bg-light" id="convert"><a href="{% url 'website:convert' %}">Convert A File</a></li>
+                                            <li class="list-group-item bg-light"><a href="{% url 'website:qrcode' %}">Generate a QRCode</a></li>
+                                            <li class="list-group-item bg-light"><a href="{% url 'website:p_generator' %}">Generate A Password</a></li>
+                                        </ul>
+                                    </div>
+                                    Thank you for visiting our website, and we hope you find it useful!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% include 'website/footer.html' %}
+        <script src="{% static 'website/bootstrap/js/bootstrap.js' %}" async defer></script>
+    </body>
+</html>
